@@ -191,9 +191,9 @@ export type Progress = {
 	loaded: number;
 };
 
-export type InferenceConfg = {
-	text: string;
-	voiceId: VoiceId;
+export type InferenceConfig = {
+  text: string,
+  voiceId: VoiceId
 };
 
 export type ProgressCallback = (progress: Progress) => void;
