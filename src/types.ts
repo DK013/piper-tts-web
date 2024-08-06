@@ -163,27 +163,27 @@ export type FileKey =
 export type Quality = 'low' | 'medium' | 'x_low' | 'high';
 
 export type Voice = {
-	key: VoiceId;
-	name: string;
-	language: {
-		code: CountryCode;
-		family: string;
-		region: string;
-		name_native: string;
-		name_english: string;
-		country_english: string;
-	};
-	quality: Quality;
-	num_speakers: number;
-	speaker_id_map: Record<string, number>;
-	files: {
-		[key: FileKey]: {
-			size_bytes: number;
-			md5_digest: string;
-		};
-	};
-	aliases: string[];
-};
+  key: VoiceId | string;
+  name: string;
+  language: {
+    code: CountryCode | string;
+    family: string;
+    region: string;
+    name_native: string;
+    name_english: string;
+    country_english: string;
+  };
+  quality: Quality | string;
+  num_speakers: number;
+  speaker_id_map: Record<string, number>;
+  files: {
+    [key: FileKey]: {
+      size_bytes: number;
+      md5_digest: string;
+    }
+  };
+  aliases: string[]
+}
 
 export type Progress = {
 	url: string;
