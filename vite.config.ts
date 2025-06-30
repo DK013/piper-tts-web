@@ -5,6 +5,9 @@ import dts from 'vite-plugin-dts';
 export default defineConfig({
   publicDir: process.env.NODE_ENV !== 'production' ? './assets' : '',
   build: {
+    // Only clean the dist directory, not the temp directory
+    emptyOutDir: true,
+    outDir: 'dist',
     minify: false,
     lib: {
       entry: path.resolve(__dirname, 'src/index.ts'),
@@ -18,7 +21,10 @@ export default defineConfig({
       ],
     },
   },
-  plugins: [dts({ exclude: "**/*.spec.ts" })],
+  plugins: [dts({ 
+    exclude: "**/*.spec.ts",
+    outDir: 'dist/types'
+  })],
   server: {
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',

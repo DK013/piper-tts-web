@@ -4,9 +4,6 @@ import { readBlob, writeBlob } from './opfs';
 import { fetchBlob } from './http.js';
 import { pcm2wav } from './audio';
 
-let module: typeof import('./piper.js');
-let ort: typeof import('onnxruntime-web');
-
 interface TtsSessionOptions {
   voiceId: VoiceId;
   progress?: ProgressCallback;

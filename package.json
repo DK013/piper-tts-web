@@ -41,8 +41,9 @@
     "AnythingLLM"
   ],
   "scripts": {
+    "clean": "rimraf temp dist",
     "dev": "vite",
-    "build": "rm -r -f ./dist && tsc && vite build",
+    "build": "npm run clean && tsc && vite build",
     "preview": "vite preview",
     "format": "npx @biomejs/biome format --write ./src",
     "test": "npx playwright test --project=chromium",
@@ -52,6 +53,7 @@
     "@biomejs/biome": "1.8.3",
     "@playwright/test": "^1.35.1",
     "object-deep-compare": "^1.2.0",
+    "rimraf": "^6.0.1",
     "typescript": "^5.2.2",
     "vite": "^5.3.1",
     "vite-plugin-dts": "^3.9.1"
