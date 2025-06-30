@@ -103,7 +103,7 @@ export class TtsSession {
     );
   }
 
-  async predict(text: string): Promise<Blob> {
+  async predict(text: string, config?: any): Promise<Blob> {
     await this.waitReady; // wait for the session to be ready
 
     const input = JSON.stringify([{ text: text.trim() }]);
@@ -139,10 +139,10 @@ export class TtsSession {
     });
 
     const speakerId = 0;
-    const sampleRate = this.#modelConfig.audio.sample_rate;
-    const noiseScale = this.#modelConfig.inference.noise_scale;
-    const lengthScale = this.#modelConfig.inference.length_scale;
-    const noiseW = this.#modelConfig.inference.noise_w;
+    const sampleRate = config?.sample_rate ?? this.#modelConfig.audio.sample_rate;
+    const noiseScale = config?.noise_scale ?? this.#modelConfig.inference.noise_scale;
+    const lengthScale = config?.length_scale ?? this.#modelConfig.inference.length_scale;
+    const noiseW = config?.noise_w ?? this.#modelConfig.inference.noise_w;
 
     const session = this.#ortSession!;
     const feeds = {
@@ -176,13 +176,18 @@ export class TtsSession {
  */
 export async function predict(
   config: InferenceConfig,
+  session?: TtsSession,
   callback?: ProgressCallback
 ): Promise<Blob> {
-  const session = new TtsSession({
-    voiceId: config.voiceId,
-    progress: callback,
-  });
-  return session.predict(config.text);
+  if(!session) {
+    const session = new TtsSession({
+      voiceId: config.voiceId,
+      progress: callback,
+    });
+    return session.predict(config.text, config);
+  }
+
+  return session.predict(config.text, config);
 }
 
 /**
